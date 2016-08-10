@@ -23,7 +23,7 @@ class Route
       match_data.names.each do |name|
         route_params["#{name}"] = match_data[name]
       end
-      
+
       @controller_class.new(req, res, route_params).invoke_action(@action_name)
     else
       nil
