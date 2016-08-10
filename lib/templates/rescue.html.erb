@@ -1,0 +1,6 @@
+<%= "RuntimeError" %>
+
+<% e.backtrace.each do |stack_trace_line| %>
+  <%= "#{stack_trace_line}" %>
+  <%= "<br>" %>
+<% end %>

@@ -5,11 +5,12 @@ class Flash
 
   def initialize(req)
     #require 'byebug'; debugger
-    if req.cookies['_rails_lite_app_flash'].nil? || req.cookies['_rails_lite_app_flash']
+    if req.cookies['_rails_lite_app_flash'].nil? || req.cookies['_rails_lite_app_flash'] == "null"
       @now = Hash.new
     else
       @now = JSON.parse(req.cookies['_rails_lite_app_flash'])
     end
+
     @store = Hash.new
   end
 
