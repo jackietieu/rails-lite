@@ -3,6 +3,7 @@ require 'active_support/core_ext'
 require 'active_support/inflector'
 require 'erb'
 require_relative './session'
+require_relative './flash'
 require 'byebug'
 
 class ControllerBase
@@ -29,6 +30,7 @@ class ControllerBase
     @res['Location'] = url
 
     session.store_session(@res)
+    flash.store_flash(@res)
 
     nil
   end
@@ -44,6 +46,7 @@ class ControllerBase
     @res['Content-Type'] = content_type
 
     session.store_session(@res)
+    flash.store_flash(@res)
 
     nil
   end
@@ -60,6 +63,10 @@ class ControllerBase
   # method exposing a `Session` object
   def session
     @session ||= Session.new(@req)
+  end
+
+  def flash
+    @flash ||= Flash.new(@req)
   end
 
   # use this with the router to call action_name (:index, :show, :create...)

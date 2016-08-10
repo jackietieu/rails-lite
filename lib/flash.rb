@@ -4,14 +4,13 @@ class Flash
   attr_accessor :now
 
   def initialize(req)
-    @now = req.cookies['_rails_lite_app_flash']
-
-    if @now.nil?
+    #require 'byebug'; debugger
+    if req.cookies['_rails_lite_app_flash'].nil? || req.cookies['_rails_lite_app_flash']
       @now = Hash.new
-      @store = Hash.new
     else
       @now = JSON.parse(req.cookies['_rails_lite_app_flash'])
     end
+    @store = Hash.new
   end
 
   def [](key)
