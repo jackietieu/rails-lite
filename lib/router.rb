@@ -18,27 +18,17 @@ class Route
   def run(req, res)
     match_data = @pattern.match(req.path)
 
-    route_params = {}
-    match_data.names.each do |name|
-      route_params["#{name}"] = match_data[name]
-    end
-
     if matches?(req)
+      route_params = {}
+      match_data.names.each do |name|
+        route_params["#{name}"] = match_data[name]
+      end
+      
       @controller_class.new(req, res, route_params).invoke_action(@action_name)
     else
       nil
     end
   end
-
-  # def run(req, res)
-  #   match_data = @pattern.match(req.path)
-  #
-  #   route_params = Hash[match_data.names.zip(match_data.captures)]
-  #
-  #   @controller_class
-  #     .new(req, res, route_params)
-  #     .invoke_action(action_name)
-  # end
 end
 
 class Router
