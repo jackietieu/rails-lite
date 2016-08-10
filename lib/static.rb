@@ -41,18 +41,20 @@ class Static
     res = Rack::Response.new
 
     if File.exist?(file_path)
-      file = File.read(file_path)
-
-      res.status = 200
-      res['Content-Type'] = "#{MIME_TYPES[file_path.match(/.\w+$/)[0]]}"
-      res.write(file)
-
-      res
+      retrieve_file(file_path, res)
     else
       res.status = 404
       res.write("File not found")
     end
 
     res
+  end
+
+  def retrieve_file(file_path, res)
+    file = File.read(file_path)
+
+    res.status = 200
+    res['Content-Type'] = "#{MIME_TYPES[file_path.match(/.\w+$/)[0]]}"
+    res.write(file)
   end
 end
